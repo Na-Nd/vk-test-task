@@ -1,7 +1,7 @@
 ### 1. Клонировать репозиторий
 
 ```bash
-git clone <https://github.com/Na-Nd/vk-test-task>
+git clone https://github.com/Na-Nd/vk-test-task
 cd vk-test-task
 ```
 

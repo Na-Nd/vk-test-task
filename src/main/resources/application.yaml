@@ -1,3 +1,16 @@
 spring:
   application:
     name: vk-test-task
+
+grpc:
+  server:
+    port: 9090
+
+tarantool:
+  host: ${TARANTOOL_HOST:localhost}
+  port: ${TARANTOOL_PORT:3301}
+  username: admin
+  password: admin
+  connect-timeout-ms: 5000
+  read-timeout-ms: 10000
+  request-timeout-ms: 30000

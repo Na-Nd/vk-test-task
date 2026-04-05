@@ -1,0 +1,30 @@
+services:
+  tarantool:
+    image: tarantool/tarantool:3.2
+    command: ["tarantool", "--config", "/opt/tarantool/config.yaml", "--name", "instance-001"]
+    ports:
+      - "3301:3301"
+    volumes:
+      - ./tarantool/config.yaml:/opt/tarantool/config.yaml
+      - ./tarantool/init.lua:/opt/tarantool/init.lua
+      - tarantool_data:/var/lib/tarantool
+    healthcheck:
+      test: ["CMD-SHELL", "tarantool --version || exit 1"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 15s
+
+  app:
+    build: .
+    ports:
+      - "9090:9090"
+    depends_on:
+      tarantool:
+        condition: service_healthy
+    environment:
+      - TARANTOOL_HOST=tarantool
+      - TARANTOOL_PORT=3301
+
+volumes:
+  tarantool_data:
